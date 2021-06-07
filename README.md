@@ -33,7 +33,8 @@ app.wallet.returnBalance();
 app.wallet.returnPublicKey();
 async app.wallet.sendPayment(senders=[], receivers=[], amounts=[], timestamp, mycallback, ticker);
 async app.wallet.receivePayment(senders=[], receivers=[], amounts=[], timestamp, mycallback, ticker, tries=36, pollWaitTime=5000);
-async app.wallet.returnPreferredCryptoBalances(addresses=[], mycallback=null, ticker="") {
+async app.wallet.returnPreferredCryptoBalances(addresses=[], mycallback=null, ticker="");
+```
 
 Documentation on these wallet-level functions is available here. We recommend those interested in coding actual applications that use these various approaches to consult this tutorial code for a sense of how these features can be integrated with other applications. See also the Saito Game Engine (in particularly the SEND / RECEIVE commands) for an example of how to programmatically integrate Saito wallet-layer functionality with UI elements that process while sending and receive transactions.
 
@@ -45,7 +46,7 @@ The Saito Lite Client facilitates interoperability with any cryptocurrency by im
 The functions provided by the [Lite Client's Wallet API](https://saito.io/docs/polkadot/Wallet.html) will honor the user's Preferred Cryptocurrency, allowing a Saito DAPP to seamlessly change from one cryptocurrency to another.
 
 
-## Configuration and Deployment for Substrate-based Cryptocurrencies
+## Configuration and deployment for Substrate-based Cryptocurrencies
 
 To work with Substrate-based cryptocurrencies, we've extended AbstractCryptoModule as SubstrateBasedCrypto which can be used to interact with Polkadot, Kusama, or Westend. Leveraging this class to interact with parachains in the future should be very straightforward.
 
