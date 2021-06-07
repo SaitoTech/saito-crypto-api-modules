@@ -4,7 +4,7 @@
 
 Saito makes it possible to write applications that use other blockchains. You can code a game that requires a payment to be made in another cryptocurrency or a wallet-plugin that lets you send and receive transactions. Saito does this by supprting third-party "cryptocurrency modules" that provides a bridge to other networks.
 
-In order to use another cryptocurrency with Saito applications, users need to have the appropriate module installed in their Saito wallet. As a member of the Polkadot community, Saito comes by default with bundles that provide support for Polkadot (DOT), Kusama (KSM) and other substrate-based networks. Modules can easily be built that support for other networks too -- if you are a developer interested in getting your favourite cryptocurrency supported get in touch!
+To use another cryptocurrency with Saito applications, users need to have the appropriate module installed in their Saito wallet. As part of the work covered by this grant, Saito comes by default with bundles that provide support for Polkadot (DOT), Kusama (KSM) and other substrate-based networks. Modules can easily be built that support for other networks. If you are a developer interested in getting your favourite cryptocurrency supported get in touch.
 
 ## What Can You Build
 
