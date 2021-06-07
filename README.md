@@ -14,40 +14,6 @@ Applications that require a specific cryptocurrency. See an example of our Polka
 
 Applications that work with whatever cryptocurrency users prefer to use. An example of this is the Poker game that runs in the Saito Arcade. Our Saito Game Engine is also written to be cryptocurrency-agnostic: as soon as a module is available for some cryptocurrency all of the games in the Arcade will instantly support it.
 
-## Configuration and deployment for Substrate-based Cryptocurrencies
-
-To interact with a substrate-based crypto such as Polkadot or Kusama, you'll need to run [saito-lite](https://github.com/SaitoTech/saito-lite#How-To-Use-Saito). 
-
-To configure a module for a substrate-based crypto such as Polkadot or Kusama, simply extend SubstrateBasedCrypto with an endpoint and ticker for the crypto-currency:
-
-For example:
-
-```
-class Polkadot extends SubstrateBasedCrypto {
-  constructor(app) {
-    super(app, 'DOT', 'ws://myendpoint.com:9934);
-    this.name = 'Polkadot';
-    this.description = 'Polkadot application layer for in-browser Polkadot applications. Install this module to interact with Polkadot.';
-  }
-}
-```
-
-The module can then be installed in the lite client via the configuration in config/config.modules.js.
-
-A public endpoint will work if you can find one, otherwise you can run your own:
-
-```
-/usr/bin/polkadot --chain polkadot --ws-port 9934 --rpc-external --ws-external --rpc-cors=all
-```
-
-If running in a production environment, it would be prudent to also put your node behind a reverse proxy such as nginx.
-
-Be sure that you're running that latest version of polkadot and that your saito-lite installation has the latest version of the polkadot apis, @polkadot/api.
-
-```
-npm install @polkadot/api@latest
-```
-
 ## Using Cryptocurrencies within Saito Applications
 
 The Saito Wallet provides the core interface for dealing with Cryptocurrency Modules. It allows users to set a "preferred cryptocurrency" and fetch that module. Requests to the other network can then be sent through a standard set of functions which are defined in all cryptocurrency modules.
@@ -78,11 +44,46 @@ The Saito Lite Client facilitates interoperability with any cryptocurrency by im
 
 The functions provided by the [Lite Client's Wallet API](https://saito.io/docs/polkadot/Wallet.html) will honor the user's Preferred Cryptocurrency, allowing a Saito DAPP to seamlessly change from one cryptocurrency to another.
 
-## Working with Substrate-based cryptos
+
+## Configuration and deployment for Substrate-based Cryptocurrencies
 
 To work with Substrate-based cryptocurrencies, we've extended AbstractCryptoModule as SubstrateBasedCrypto which can be used to interact with Polkadot, Kusama, or Westend. Leveraging this class to interact with parachains in the future should be very straightforward.
 
 This functionality represents the work described in [Milestone 1 of our Web3 Foundation grant](https://github.com/w3f/Open-Grants-Program/blob/master/applications/saito-game-protocol-and-engine.md).
+
+You'll need to run [saito-lite](https://github.com/SaitoTech/saito-lite#How-To-Use-Saito). 
+
+To configure a module for a substrate-based crypto such as Polkadot or Kusama, simply extend SubstrateBasedCrypto with an endpoint and ticker for the crypto-currency:
+
+For example:
+
+```
+class Polkadot extends SubstrateBasedCrypto {
+  constructor(app) {
+    super(app, 'DOT', 'ws://myendpoint.com:9934);
+    this.name = 'Polkadot';
+    this.description = 'Polkadot application layer for in-browser Polkadot applications. Install this module to interact with Polkadot.';
+  }
+}
+```
+
+Polkadot, Kusama, and Westend are already included in the saito-lite codebase, extending SubstrateBasedCrypto for parachains like this is also possible.
+
+Your module can then be installed in the lite client via the configuration in config/config.modules.js.
+
+A public endpoint will work if you can find one, otherwise you can run your own:
+
+```
+/usr/bin/polkadot --chain polkadot --ws-port 9934 --rpc-external --ws-external --rpc-cors=all
+```
+
+If running in a production environment, it would be prudent to also put your node behind a reverse proxy such as nginx.
+
+Be sure that you're running the latest version of polkadot and that your saito-lite installation has the latest version of the polkadot apis, @polkadot/api.
+
+```
+npm install @polkadot/api@latest
+```
 
 ## Tutorial
 
