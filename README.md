@@ -45,7 +45,7 @@ The Saito Lite Client facilitates interoperability with any cryptocurrency by im
 The functions provided by the [Lite Client's Wallet API](https://saito.io/docs/polkadot/Wallet.html) will honor the user's Preferred Cryptocurrency, allowing a Saito DAPP to seamlessly change from one cryptocurrency to another.
 
 
-## Configuration and deployment for Substrate-based Cryptocurrencies
+## Configuration and Deployment for Substrate-based Cryptocurrencies
 
 To work with Substrate-based cryptocurrencies, we've extended AbstractCryptoModule as SubstrateBasedCrypto which can be used to interact with Polkadot, Kusama, or Westend. Leveraging this class to interact with parachains in the future should be very straightforward.
 
