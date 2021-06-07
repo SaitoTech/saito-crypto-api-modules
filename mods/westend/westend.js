@@ -20,14 +20,14 @@ class Westend extends SubstrateBasedCrypto {
         <div id="dot-warning-header" class="dot-warning-header">Westend Network:</div>
         <div id="dot-warning-body" class="dot-warning-body">
 
-Westend is a Polkadot testnet. It is intended for developing and testing applications. Free tokens are available from the Westend Token Faucet.
+          Westend is a Polkadot testnet. It is intended for developing and testing applications. Free tokens are available from the Westend Token Faucet.
 
-<p style="margin-bottom:20px"></p>
+          <p style="margin-bottom:20px"></p>
 
-Please note that while Saito is under development your wallet may periodically get reset, so we recommend keeping a copy of your Westend keys safe by backing up your wallet if you need them. If you prefer to test applications without the need to get external tokens, we recommend switching back to the Saito network.
+          Please note that while Saito is under development your wallet may periodically get reset, so we recommend keeping a copy of your Westend keys safe by backing up your wallet if you need them. If you prefer to test applications without the need to get external tokens, we recommend switching back to the Saito network.
 
         </div>
-	<div>
+        <div>
           <div id="dot-warning-confirm" class="dot-warning-confirm button">Continue</div>
           <div id="westend-token-faucet" class="dot-warning-confirm westend-token-faucet button">Visit Token Faucet</div>
         </div>

@@ -27,8 +27,8 @@ DOT is a base-layer token. Saito supports DOT to assist with cross-chain applica
 Additionally, <b>with this module you can lose significant amounts of money with no protection</b>. Key backup and management is also entirely your responsibility. Unless you know what you are doing, please switch back to Saito or a Polkadot parachain.
 
         </div>
-	<div id="dot-warning-confirm" class="dot-warning-confirm button">Continue</div>
-	<div id="revert-to-saito" class="dot-warning-confirm revert-to-saito button">Back to Safety</div>
+        <div id="dot-warning-confirm" class="dot-warning-confirm button">Continue</div>
+        <div id="revert-to-saito" class="dot-warning-confirm revert-to-saito button">Back to Safety</div>
       </div>
       <style>
 .dot-warning {
