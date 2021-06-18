@@ -72,6 +72,39 @@ Polkadot, Kusama, and Westend are already included in the saito-lite codebase, e
 
 Your module can then be installed in the lite client via the configuration in config/config.modules.js.
 
+A basic config file can be copied from config/modules.default.js if you don't have one already. This is also done automatically if you start saito-lite without it.
+
+```
+cp config/modules.default.js config/config.modules.js
+```
+
+Any of the existing modules can then be added to the lite client(or you can add your own if you're developing one):
+
+```
+module.exports = {
+  core: [
+    ....
+  ],
+  lite: [
+    ...
+    'kusama/kusama.js',
+    ...
+    'polkadot/polkadot.js',
+    ...
+    'westend/westend.js',
+    ...
+    'mymodule/mymodule.js',
+    ...
+  ]
+}
+```
+
+Be sure to recompile the lite client again before trying to serve it:
+
+```
+npm run compile dev && npm start
+```
+
 A public endpoint will work if you can find one, otherwise you can run your own:
 
 ```
