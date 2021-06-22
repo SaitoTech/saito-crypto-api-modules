@@ -1,0 +1,19 @@
+{
+  "name": "saito-crypto-module-tests",
+  "version": "0.1.0",
+  "description": "testing environment for substrate-class web3 cryptos",
+  "main": "tests/runtests.js",
+  "scripts": {
+    "test": "NODE_ENV=test node tests/runtests.js"
+  },
+  "author": "Team Saito",
+  "license": "Apache2",
+  "homepage": "https://saito.io",
+  "dependencies": {
+    "@polkadot/api": "^4.10.1",
+    "@polkadot/keyring": "^6.8.1",
+    "babel": "^6.23.0",
+    "crypto": "^1.0.1"
+  },
+  "devDependencies": {}
+}
