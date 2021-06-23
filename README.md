@@ -113,6 +113,17 @@ cryptoMod.hasPayment(howMuch, from, to, timestamp)
 
 For details of the architecture, see our [architecture document](https://github.com/SaitoTech/saito-lite/blob/master/docs/saito-dot-integration.pdf).
 
+## Testing
+
+Test have been included for the modules included in this repository. These mock the existance of a Saito stack and configuration and exercise the basic functions.
+
+### Notes
+
+These tests run against Saito infrastructure (Westend, Kusama and Polkadot nodes). Tests can be run against arbitrary infrastructure by editing the constants in the head of the relevant module.
+
+These tests include transfering funds. The transfer functions abort if no balance is available. 
+
+
 ## Future Work
 
 If a DAPP author also wishes to leverage Saito as an Open Infrastructure platform as well, all interactions with the cryptocurrency can be passed through Saito Transactions. This enables efficient distribution of the transactions to their endpoint services within the Saito Network and also allows the author to receive payment for access to the endpoints by requiring a micro-payment in Saito.
@@ -155,3 +166,4 @@ Typically wraps a Websocket connection to the endpoint.
 > *If a Saito Endpoint author wishes to grant unlimited access to typical HTTP/REST endpoints for a given period of time it is recommended to create a call like Call(“RequestAuthorization”,...) and to add a signed challenge object to subsequent calls to the HTTP endpoints.*
 > 
 > *For example, if a user has been granted 24 hours of access to a call to something like OnBalanceChange, this could be authorized via Call(“RequestAuthorization”,{pubkey: myPubkey}). Once authorized, subsequent calls to the endpoint would sign dated challenge tokens from the endpoint in order to gain HTTP/REST-style access to those endpoints.*
+
