@@ -97,20 +97,18 @@ let mock_app = {
 };
 
 let runAllTests = async () => {
-  let mock_crypto_module = new Westend(mock_app);
   await runBalanceTest(new Westend(mock_app));
   await runTransferTest(new Westend(mock_app),getModuleOptionsAsSavedWestend, "5FipvEwH67TpD6oWhCw7FDgixqmLUgg9KpsfFxKJG2P6AiSg");
 
-  mock_crypto_module = new Kusama(mock_app);
   await runBalanceTest(new Kusama(mock_app));
-  await runTransferTest(new Kusama(mock_app),getModuleOptionsAsSavedKusama, "HhNHLy5oNEJbaPQW48vs8ugAVBsitaVGPiV61kr8pRxB7D8");
+  await runTransferTest(new Kusama(mock_app), getModuleOptionsAsSavedKusama, "HhNHLy5oNEJbaPQW48vs8ugAVBsitaVGPiV61kr8pRxB7D8");
 
-  mock_crypto_module = new Polkadot(mock_app);
   await runBalanceTest(new Polkadot(mock_app));
-  await runTransferTest(new Polkadot(mock_app),getModuleOptionsAsSavedPolkadot, "13mABKJCTLRN3n31K8Cw3dUvqx9fCW1cjsWAWGHZTxEv6KSk");
+  await runTransferTest(new Polkadot(mock_app), getModuleOptionsAsSavedPolkadot, "13mABKJCTLRN3n31K8Cw3dUvqx9fCW1cjsWAWGHZTxEv6KSk");
   process.exit();
 }
 let runBalanceTest = async (mock_crypto_module) => {
+  // initialize module with a new wallet, should have 0 balance
   mock_crypto_module.initialize(mock_app);
   console.log("------------------------------");
   console.log("Test - Retrieve " + mock_crypto_module.name + " balance.");
@@ -124,23 +122,23 @@ let runBalanceTest = async (mock_crypto_module) => {
   assert(balance === 0.0);
 }
 let runTransferTest = async (mock_crypto_module, getModuleOptionsFunc, savedOptionsAddress) => {
+  // initialize module with a saved wallet from mock storage. Send funds to the appropriate address to run this test.
   mock_app.storage.getModuleOptionsByName = getModuleOptionsFunc;
   mock_crypto_module.initialize(mock_app);
   console.log("------------------------------");
   console.log("Test - Transfer " + mock_crypto_module.name + " balance.");
   console.log("Endpoint: " + mock_crypto_module.endpoint);
   console.log("From Address: " + mock_crypto_module.returnAddress());
-  //assert(mock_crypto_module.returnAddress() == savedOptionsAddress);
   balance = await mock_crypto_module.returnBalance();
   if(typeof balance.toNumber === 'function') {
     balance = balance.toNumber();
   }
   console.log("Balance: " + balance);
   if(balance === 0.0) {
-    console.log("Balance needed for transfer testing. Aborting.");
+    console.log(`Balance needed for transfer testing. Aborting. Send coins to ${savedOptionsAddress} to complete this test.`);
   } else {
     let hash = await mock_crypto_module.transfer(0.0001, "5F8BATXh9XxpE6tMqVUSXJB4X9A7scQMi7LAJQRAxcaBnrBr");
-    let verify_payment = await mock_crypto_module.hasPayment(0.0001, getModuleOptionsFunc, "5F8BATXh9XxpE6tMqVUSXJB4X9A7scQMi7LAJQRAxcaBnrBr", Math.floor(Date.now() / 1000));
+    let verify_payment = await mock_crypto_module.hasPayment(0.0001, savedOptionsAddress, "5F8BATXh9XxpE6tMqVUSXJB4X9A7scQMi7LAJQRAxcaBnrBr", Math.floor(Date.now() / 1000));
     assert(verify_payment);
   }
 }
