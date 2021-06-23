@@ -6,9 +6,9 @@ const node_assert = require('assert');
 let assert = (boolish) => {
   try {
     node_assert(boolish)
-    console.log("test passed");
+    console.log("\nPASSED\n");
   } catch(err) {
-    console.log("test failed");
+    console.log("\nFAILED\n");
     console.log(err);
   }
 }
@@ -97,14 +97,35 @@ let mock_app = {
 };
 
 let runAllTests = async () => {
+  //Westend
+
+  // test wallet generation and api by checking 0 balance correctly returned for newly created wallet.
   await runBalanceTest(new Westend(mock_app));
-  await runTransferTest(new Westend(mock_app),getModuleOptionsAsSavedWestend, "5FipvEwH67TpD6oWhCw7FDgixqmLUgg9KpsfFxKJG2P6AiSg", "5F8BATXh9XxpE6tMqVUSXJB4X9A7scQMi7LAJQRAxcaBnrBr");
 
+  // Test transfer function
+  // Use the Westend faucet to add tokens to 5Fjj4R2t17fMoBw5Zi3LJQXis1RvLjJ4wQGS1BfJ8993FDGt to test.
+  let westend_to_address = "5F8BATXh9XxpE6tMqVUSXJB4X9A7scQMi7LAJQRAxcaBnrBr";
+  await runTransferTest(new Westend(mock_app),getModuleOptionsAsSavedWestend, westend_to_address);
+
+  //Kusama
+
+  // test wallet generation and api by checking 0 balance correctly returned for newly created wallet.
   await runBalanceTest(new Kusama(mock_app));
-  await runTransferTest(new Kusama(mock_app), getModuleOptionsAsSavedKusama, "HhNHLy5oNEJbaPQW48vs8ugAVBsitaVGPiV61kr8pRxB7D8", "HhNHLy5oNEJbaPQW48vs8ugAVBsitaVGPiV61kr8pRxB7D8");
 
+  // Test transfer function.
+  // Send funds to the appropriate address and add a to address below to run this test.
+  // let kusama_to_address = "";
+  // await runTransferTest(new Kusama(mock_app), getModuleOptionsAsSavedKusama, kusama_to_address);
+
+  // Polkadot
+  // test wallet generation and api by checking 0 balance correctly returned for newly created wallet.
   await runBalanceTest(new Polkadot(mock_app));
-  await runTransferTest(new Polkadot(mock_app), getModuleOptionsAsSavedPolkadot, "13mABKJCTLRN3n31K8Cw3dUvqx9fCW1cjsWAWGHZTxEv6KSk", "13mABKJCTLRN3n31K8Cw3dUvqx9fCW1cjsWAWGHZTxEv6KSk");
+
+  // Test transfer function.
+  // Send funds to the appropriate address and add a to address below to run this test.
+  // let polkadot_to_address = "";
+  // await runTransferTest(new Polkadot(mock_app), getModuleOptionsAsSavedPolkadot, polkadot_to_address);
+  
   process.exit();
 }
 let runBalanceTest = async (mock_crypto_module) => {
@@ -121,8 +142,8 @@ let runBalanceTest = async (mock_crypto_module) => {
   console.log("Balance: " + balance);
   assert(balance === 0.0);
 }
-let runTransferTest = async (mock_crypto_module, getModuleOptionsFunc, savedOptionsAddress, toAddress) => {
-  // initialize module with a saved wallet from mock storage. Send funds to the appropriate address to run this test.
+let runTransferTest = async (mock_crypto_module, getModuleOptionsFunc, toAddress) => {
+  // initialize module with a saved wallet from mock storage.
   mock_app.storage.getModuleOptionsByName = getModuleOptionsFunc;
   mock_crypto_module.initialize(mock_app);
   console.log("------------------------------");
@@ -135,10 +156,10 @@ let runTransferTest = async (mock_crypto_module, getModuleOptionsFunc, savedOpti
   }
   console.log("Balance: " + balance);
   if(balance === 0.0) {
-    console.log(`Balance needed for transfer testing. Aborting. Send coins to ${savedOptionsAddress} to complete this test.`);
+    console.log(`Balance needed for transfer testing. Aborting. Send coins to ${mock_crypto_module.returnAddress()} to complete this test.`);
   } else {
     let hash = await mock_crypto_module.transfer(0.0001, toAddress);
-    let verify_payment = await mock_crypto_module.hasPayment(0.0001, savedOptionsAddress, toAddress, Math.floor(Date.now() / 1000));
+    let verify_payment = await mock_crypto_module.hasPayment(0.0001, mock_crypto_module.returnAddress(), toAddress, Math.floor(Date.now() / 1000));
     assert(verify_payment);
   }
 }

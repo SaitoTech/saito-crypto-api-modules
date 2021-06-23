@@ -115,14 +115,19 @@ For details of the architecture, see our [architecture document](https://github.
 
 ## Testing
 
-Test have been included for the modules included in this repository. These mock the existance of a Saito stack and configuration and exercise the basic functions.
+Tests have been included for the modules included in this repository. These mock the existance of a Saito stack and configuration and exercise the basic functions.
 
+To run the tests:
+```
+npm run test
+```
 ### Notes
 
 These tests run against Saito infrastructure (Westend, Kusama and Polkadot nodes). Tests can be run against arbitrary infrastructure by editing the constants in the head of the relevant module.
 
-These tests include transfering funds. The transfer functions abort if no balance is available. 
+These tests include transfering funds. The transfer functions abort if no balance is available. The transfer functions for Kusama and Polkadot are commented out by default as these are not test networks.
 
+Instructions are included in the comments of ```tests/runtests.js``` on testing transfer of non-test-network funds.
 
 ## Future Work
 
