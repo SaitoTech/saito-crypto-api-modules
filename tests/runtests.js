@@ -98,13 +98,13 @@ let mock_app = {
 
 let runAllTests = async () => {
   await runBalanceTest(new Westend(mock_app));
-  await runTransferTest(new Westend(mock_app),getModuleOptionsAsSavedWestend, "5FipvEwH67TpD6oWhCw7FDgixqmLUgg9KpsfFxKJG2P6AiSg");
+  await runTransferTest(new Westend(mock_app),getModuleOptionsAsSavedWestend, "5FipvEwH67TpD6oWhCw7FDgixqmLUgg9KpsfFxKJG2P6AiSg", "5F8BATXh9XxpE6tMqVUSXJB4X9A7scQMi7LAJQRAxcaBnrBr");
 
   await runBalanceTest(new Kusama(mock_app));
-  await runTransferTest(new Kusama(mock_app), getModuleOptionsAsSavedKusama, "HhNHLy5oNEJbaPQW48vs8ugAVBsitaVGPiV61kr8pRxB7D8");
+  await runTransferTest(new Kusama(mock_app), getModuleOptionsAsSavedKusama, "HhNHLy5oNEJbaPQW48vs8ugAVBsitaVGPiV61kr8pRxB7D8", "HhNHLy5oNEJbaPQW48vs8ugAVBsitaVGPiV61kr8pRxB7D8");
 
   await runBalanceTest(new Polkadot(mock_app));
-  await runTransferTest(new Polkadot(mock_app), getModuleOptionsAsSavedPolkadot, "13mABKJCTLRN3n31K8Cw3dUvqx9fCW1cjsWAWGHZTxEv6KSk");
+  await runTransferTest(new Polkadot(mock_app), getModuleOptionsAsSavedPolkadot, "13mABKJCTLRN3n31K8Cw3dUvqx9fCW1cjsWAWGHZTxEv6KSk", "13mABKJCTLRN3n31K8Cw3dUvqx9fCW1cjsWAWGHZTxEv6KSk");
   process.exit();
 }
 let runBalanceTest = async (mock_crypto_module) => {
@@ -121,7 +121,7 @@ let runBalanceTest = async (mock_crypto_module) => {
   console.log("Balance: " + balance);
   assert(balance === 0.0);
 }
-let runTransferTest = async (mock_crypto_module, getModuleOptionsFunc, savedOptionsAddress) => {
+let runTransferTest = async (mock_crypto_module, getModuleOptionsFunc, savedOptionsAddress, toAddress) => {
   // initialize module with a saved wallet from mock storage. Send funds to the appropriate address to run this test.
   mock_app.storage.getModuleOptionsByName = getModuleOptionsFunc;
   mock_crypto_module.initialize(mock_app);
@@ -137,8 +137,8 @@ let runTransferTest = async (mock_crypto_module, getModuleOptionsFunc, savedOpti
   if(balance === 0.0) {
     console.log(`Balance needed for transfer testing. Aborting. Send coins to ${savedOptionsAddress} to complete this test.`);
   } else {
-    let hash = await mock_crypto_module.transfer(0.0001, "5F8BATXh9XxpE6tMqVUSXJB4X9A7scQMi7LAJQRAxcaBnrBr");
-    let verify_payment = await mock_crypto_module.hasPayment(0.0001, savedOptionsAddress, "5F8BATXh9XxpE6tMqVUSXJB4X9A7scQMi7LAJQRAxcaBnrBr", Math.floor(Date.now() / 1000));
+    let hash = await mock_crypto_module.transfer(0.0001, toAddress);
+    let verify_payment = await mock_crypto_module.hasPayment(0.0001, savedOptionsAddress, toAddress, Math.floor(Date.now() / 1000));
     assert(verify_payment);
   }
 }
