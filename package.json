@@ -10,8 +10,8 @@
   "license": "Apache2",
   "homepage": "https://saito.io",
   "dependencies": {
-    "@polkadot/api": "^4.10.1",
-    "@polkadot/keyring": "^6.8.1",
+    "@polkadot/api": "^4.17.1",
+    "@polkadot/keyring": "^6.11.1",
     "babel": "^6.23.0",
     "crypto": "^1.0.1"
   },
